@@ -29,6 +29,9 @@ RUN apt-get upgrade -y
 RUN apt-get install -y curl libxml2-dev libxslt-dev libcurl4-openssl-dev libreadline6-dev libssl-dev patch build-essential zlib1g-dev openssh-server libyaml-dev libicu-dev
 RUN apt-get install -y git
 
+# Disable SSL Verification for Self Signed Certificates
+RUN git config --global http.sslverify false
+
 # Download Ruby and compile it
 RUN mkdir /tmp/ruby
 RUN cd /tmp/ruby && curl --silent ftp://ftp.ruby-lang.org/pub/ruby/2.0/ruby-2.0.0-p481.tar.gz | tar xz
