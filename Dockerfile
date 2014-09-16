@@ -30,7 +30,6 @@ RUN apt-get install -y curl libxml2-dev libxslt-dev libcurl4-openssl-dev libread
 RUN apt-get install -y git
 
 # Disable SSL Verification for Self Signed Certificates
-#RUN git config --global http.sslverify false
 ENV GIT_SSL_NO_VERIFY 1
 
 # Download Ruby and compile it
@@ -57,7 +56,6 @@ WORKDIR /gitlab-ci-runner.git
 
 # When the image is started add the remote server key, set up the runner and run it
 CMD ssh-keyscan -H $GITLAB_SERVER_FQDN >> /root/.ssh/known_hosts && bundle exec ./bin/setup_and_run
-#CMD git config --global http.sslverify false
 
 ## Optional dependencies
 ##
