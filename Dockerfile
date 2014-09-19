@@ -24,10 +24,15 @@ MAINTAINER  Sytse Sijbrandij "sytse@gitlab.com"
 ENV DEBIAN_FRONTEND noninteractive
 
 # Update your packages and install the ones that are needed to compile Ruby
-RUN apt-get update -y
-RUN apt-get upgrade -y
-RUN apt-get install -y curl libxml2-dev libxslt-dev libcurl4-openssl-dev libreadline6-dev libssl-dev patch build-essential zlib1g-dev openssh-server libyaml-dev libicu-dev
-RUN apt-get install -y git
+RUN apt-get update -y && \
+	apt-get upgrade -y && \
+	apt-get install -y curl libxml2-dev libxslt-dev libcurl4-openssl-dev libreadline6-dev libssl-dev patch build-essential zlib1g-dev openssh-server libyaml-dev libicu-dev && \ 
+	apt-get install -y git nodejs npm ruby mongodb
+
+RUN ln -s /usr/bin/nodejs /usr/bin/node
+
+RUN npm install -g bower && \
+	npm install -g grunt-cli
 
 # Disable SSL Verification for Self Signed Certificates
 ENV GIT_SSL_NO_VERIFY 1
