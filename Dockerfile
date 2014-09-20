@@ -27,7 +27,12 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update -y && \
 	apt-get upgrade -y && \
 	apt-get install -y curl libxml2-dev libxslt-dev libcurl4-openssl-dev libreadline6-dev libssl-dev patch build-essential zlib1g-dev openssh-server libyaml-dev libicu-dev && \ 
-	apt-get install -y git nodejs npm ruby mongodb
+	apt-get install -y git nodejs npm ruby mongodb phantomjs
+
+EXPOSE 9000
+EXPOSE 27017
+EXPOSE 27018
+EXPOSE 27019
 
 RUN ln -s /usr/bin/nodejs /usr/bin/node
 
@@ -42,7 +47,7 @@ RUN mkdir /tmp/ruby
 RUN cd /tmp/ruby && curl --silent ftp://ftp.ruby-lang.org/pub/ruby/2.0/ruby-2.0.0-p481.tar.gz | tar xz
 RUN cd /tmp/ruby/ruby-2.0.0-p481 && ./configure --disable-install-rdoc && make install
 
-RUN gem install bundler
+RUN gem install bundler sass compass
 
 # Set an utf-8 locale
 RUN echo "LC_ALL=\"en_US.UTF-8\"" >> /etc/default/locale
